@@ -1,5 +1,12 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 
-export default function index() {
-	return <div>login</div>;
+function LoginPage() {
+	return (
+		<>
+			<div>Login TEMPLATE</div>
+			<Link to='/home'>Home</Link>
+		</>
+	);
 }
+
+export default LoginPage;

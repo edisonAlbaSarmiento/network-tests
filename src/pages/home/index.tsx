@@ -1,10 +1,10 @@
 import { HomeTemplate } from 'components/templates';
 
-function Home() {
+function HomePage() {
 	return (
 		<div>
 			<HomeTemplate />
 		</div>
 	);
 }
-export default Home;
+export default HomePage;

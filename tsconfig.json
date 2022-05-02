@@ -22,7 +22,8 @@
 			"utils/*": ["utils/*"],
 			"theme/*": ["theme/*"],
 			"pages/*": ["pages/*"],
-			"hooks/*": ["hooks/*"]
+			"hooks/*": ["hooks/*"],
+			"routes/*": ["routes/*"]
 		}
 	},
 	"include": ["src"]
