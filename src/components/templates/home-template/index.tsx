@@ -1,10 +1,12 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function HomeTemplate(): JSX.Element {
+	let navigate = useNavigate();
+
 	return (
 		<>
 			<div>HOME TEMPLATE</div>
-			<Link to='/'>LOGIN</Link>
+			<button onClick={() => navigate('/')}>login</button>
 		</>
 	);
 }
