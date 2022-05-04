@@ -1,29 +1,32 @@
 import { Title } from './styled';
 
 type TitleComponetProps = {
-	color: string;
+	color?: string;
 	variant: 'title' | 'subtitle' | 'textCards';
 	fontSize: string;
-	marginText: string;
-	children: string;
+	marginText?: string;
+	children?: string;
+	alignText?: boolean;
 };
 
-const TitleComponet = (props: TitleComponetProps) => {
-	const { color, variant, fontSize, marginText } = props;
+const TitleComponet = ({
+	color = 'black',
+	variant,
+	fontSize,
+	marginText = '0px',
+	children,
+	alignText = false,
+}: TitleComponetProps) => {
 	return (
 		<Title
 			color={color}
 			variant={variant}
 			fontSize={fontSize}
-			marginText={marginText}>
-			{props.children}
+			marginText={marginText}
+			alignText={alignText}>
+			{children}
 		</Title>
 	);
-};
-
-TitleComponet.defaultProps = {
-	color: '#7bf5b1',
-	marginText: '0px',
 };
 
 export default TitleComponet;

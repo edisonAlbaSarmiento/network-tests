@@ -1,3 +1,4 @@
 import HomeTemplate from './home-template';
+import LoginTemplate from './login-templeate';
 
-export { HomeTemplate };
+export { LoginTemplate, HomeTemplate };

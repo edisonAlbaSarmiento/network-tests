@@ -1,6 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
 import { HomePage, LoginPage } from 'pages';
-import App from '../App';
 
 export default function RoutesPages(): JSX.Element {
 	return (
