@@ -4,11 +4,17 @@ import {
 	signInWithPopup,
 	OAuthProvider,
 	onAuthStateChanged,
-	signOut,
 } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { TitleComponet, ButtosSocialMedia } from 'components/atoms';
 import { ContentImage, Image, ContentIcons } from './styled';
+import { useSelector, useDispatch } from 'react-redux';
+
+import {
+	getLoginUserAsync,
+	logoutAsync,
+	selectUserLogin,
+} from 'redux-service/services';
 
 type LoginMoleculeProps = {
 	title?: string | undefined;
@@ -18,7 +24,10 @@ type LoginMoleculeProps = {
 function LoginMolecule({ title, subTitle }: LoginMoleculeProps): JSX.Element {
 	const [user, setUser] = useState<any>({ isLogin: false, name: '' || null });
 	let navigate = useNavigate();
+	const selectUserLoginDATA = useSelector<any>(selectUserLogin);
+	const dispatch = useDispatch();
 
+	console.log('selectUserLoginDATA', selectUserLoginDATA);
 	const onClick = (typeLogin: 'google' | 'facebook' | 'twitter' | 'github') => {
 		const auth = getAuth();
 		const authProvider = new OAuthProvider(`${typeLogin}.com`);
@@ -26,6 +35,13 @@ function LoginMolecule({ title, subTitle }: LoginMoleculeProps): JSX.Element {
 		signInWithPopup(auth, authProvider)
 			.then((result) => {
 				setUser({ isLogin: true, name: result.user.displayName });
+				console.log(result.user);
+				const data = {
+					firstName: result?.user?.displayName,
+					lastName: result?.user?.displayName,
+					email: result?.user?.email,
+				};
+				dispatch<any>(getLoginUserAsync(data));
 			})
 			.catch((err) => {
 				console.error(err);
@@ -33,10 +49,7 @@ function LoginMolecule({ title, subTitle }: LoginMoleculeProps): JSX.Element {
 	};
 
 	const logOut = () => {
-		const auth = getAuth();
-		signOut(auth)
-			.then(() => console.log('success'))
-			.catch((err) => console.error(err));
+		dispatch<any>(logoutAsync());
 	};
 
 	const getUser = () => {
