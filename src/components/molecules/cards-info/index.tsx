@@ -9,10 +9,12 @@ import {
 } from 'redux-service/services/test';
 
 type CardsInfoProps = {
-	dataCard?: any;
+	dataCardItem?: any;
 };
-export default function CardsInfo({ dataCard }: CardsInfoProps): JSX.Element {
-	console.log('dataCard', dataCard);
+export default function CardsInfo({
+	dataCardItem,
+}: CardsInfoProps): JSX.Element {
+	console.log('dataCardItem', dataCardItem);
 	let navigate = useNavigate();
 
 	const todo = useSelector(showTodo);
@@ -30,22 +32,6 @@ export default function CardsInfo({ dataCard }: CardsInfoProps): JSX.Element {
 	return (
 		<>
 			<div>CardsInfo</div>
-
-			<div className='App'>
-				<h1>Hello CodeSandboxx</h1>
-				<h2>Start editing to see some magic happen!</h2>
-				<input
-					onChange={(e) => setNewTodo({ ...newTodo, title: e.target.value })}
-				/>
-				<button onClick={addNewTodo}>Add new todo</button>
-				{todo?.map((item: any) => {
-					return <p key={item.id}>{item.title}</p>;
-				})}
-				<button onClick={() => dispatch<any>(getTodoAsync('5'))}>
-					GET TODO
-				</button>
-			</div>
-			<button onClick={() => navigate('/')}>login</button>
 		</>
 	);
 }

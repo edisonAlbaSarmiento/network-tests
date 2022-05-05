@@ -28,7 +28,7 @@ const ImagenProfile = styled.img`
 `;
 
 const ContentTextName = styled.div`
-	width: 10%;
+	width: 15%;
 	overflow-wrap: break-word;
 	padding: 0 0% 2%;
 	@media (max-width: 1024px) {

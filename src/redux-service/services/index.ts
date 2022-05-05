@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { createSlice } from '@reduxjs/toolkit';
-import { getAuth, signOut } from 'firebase/auth';
+import { getAuth, signOut, onAuthStateChanged } from 'firebase/auth';
+
 const API_URL = 'https://dummyapi.io/data/v1';
 
 const endpoints = {
@@ -14,44 +15,19 @@ const endpoints = {
 
 // USER
 
-interface createUserRequest {
-	firstName: string;
-	lastName: string;
-	email: string;
-}
-const createUser = async ({
-	firstName,
-	lastName,
-	email,
-}: createUserRequest) => {
-	console.info([firstName, lastName, email]);
-	await axios({
-		method: 'post',
-		url: endpoints.createUser,
-		data: {
-			firstName: 'Edison',
-			lastName: 'Alba',
-			email: 'edison.alba@test.com',
-		},
-	}).then((res: any) => {
-		console.log('Create user', res);
-	});
-};
-
 const userSlide = createSlice({
 	name: 'user',
 	initialState: {
-		data: [],
+		data: null,
 		showError: false,
 		loader: false,
 		isLogin: false,
 	},
 	reducers: {
 		saveDataLoginAction: (state: any, action: any) => {
-			console.log('saveDataLoginAction', state, action);
-
-			state.data.push(action.payload);
+			state.data = action.payload;
 		},
+
 		logoutDataAction: (state: any, action: any) => {
 			console.log('logoutDataAction', state, action);
 			state.data = action.payload;
@@ -71,11 +47,28 @@ const userSlide = createSlice({
 	},
 });
 
-const getLoginUserAsync = (data: any) => async (dispatch: any) => {
+const getLoginUserAsync = () => async (dispatch: any) => {
 	try {
+		dispatch(showLoaderAction(true));
+		dispatch(changeLoginAction(true));
+		const auth = getAuth();
+
+		onAuthStateChanged(auth, (user) => {
+			console.log('USERgetLoginUserAsync', user);
+			if (user) {
+				const dataUser = {
+					email: user.email,
+					name: user.displayName,
+					urlImage: user.photoURL,
+				};
+				dispatch(saveDataLoginAction(dataUser));
+			} else {
+				dispatch(saveDataLoginAction(null));
+			}
+		});
 		// await axios({
 		// 	method: 'get',
-		// 	url: `${API_URL}/user?limit=10`,
+		// 	url: `${API_URL}/post?limit=10`,
 		// 	headers: {
 		// 		'app-id': '62728f494dd3cece326fff39',
 		// 	},
@@ -87,11 +80,9 @@ const getLoginUserAsync = (data: any) => async (dispatch: any) => {
 		// }).then((res: any) => {
 		// 	console.log('getLoginUserAsync', res);
 
-		// 	dispatch(saveDataLoginAction(res.data));
+		// 	// dispatch(saveDataLoginAction(res.data));
 		// 	dispatch(showLoaderAction(false));
 		// });
-		dispatch(changeLoginAction(true));
-		dispatch(saveDataLoginAction(data));
 	} catch (err) {
 		console.log('ERROR', err);
 		dispatch(showErrorAction(false));
@@ -102,10 +93,6 @@ const getLoginUserAsync = (data: any) => async (dispatch: any) => {
 const logoutAsync = () => async (dispatch: any) => {
 	try {
 		dispatch(showLoaderAction(true));
-
-		// console.log(data);
-		// const response = await axios.post(API_URL, data);
-		// console.log(response);
 		dispatch(logoutDataAction(null));
 		const auth = getAuth();
 		signOut(auth)
@@ -123,7 +110,6 @@ const logoutAsync = () => async (dispatch: any) => {
 		dispatch(showLoaderAction(false));
 		dispatch(showErrorAction(false));
 		dispatch(changeLoginAction(false));
-
 		console.log('ERROR', err);
 	}
 };
@@ -145,12 +131,11 @@ interface Stateprops {
 }
 //selectors
 const selectUserLogin = (state: Stateprops) => state.user?.data;
-const selectError = (state: Stateprops) => state.user?.loader;
-const selectLoader = (state: Stateprops) => state.user?.showError;
+const selectError = (state: Stateprops) => state.user?.showError;
+const selectLoader = (state: Stateprops) => state.user?.loader;
 const selectIsLoggin = (state: Stateprops) => state.user?.isLogin;
 
 export {
-	createUser,
 	selectUserLogin,
 	selectLoader,
 	selectIsLoggin,
@@ -159,5 +144,7 @@ export {
 	getLoginUserAsync,
 	logoutDataAction,
 	logoutAsync,
+	showLoaderAction,
+	showErrorAction,
 };
 export default userSlide.reducer;

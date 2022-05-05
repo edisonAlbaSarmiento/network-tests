@@ -4,18 +4,27 @@ import { ContentHeader } from 'components/molecules';
 import { ContentMain } from './styled';
 
 type HeaderOrganismProps = {
-	dataUserLogin: any;
+	dataUserLogin: any | undefined;
 	actionLogout: () => void;
 };
 
 function HeaderOrganism({
-	dataUserLogin,
+	dataUserLogin = {
+		email: '',
+		name: '',
+		urlImage: '',
+	},
 	actionLogout,
 }: HeaderOrganismProps): JSX.Element {
 	console.log('dataUserLogin', dataUserLogin);
 	return (
 		<ContentMain>
-			<ContentHeader actionLogout={actionLogout} />
+			<ContentHeader
+				image={dataUserLogin?.urlImage}
+				name={dataUserLogin?.name}
+				email={dataUserLogin?.email}
+				actionLogout={actionLogout}
+			/>
 		</ContentMain>
 	);
 }

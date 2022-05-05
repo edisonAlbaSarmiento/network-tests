@@ -10,9 +10,9 @@ import {
 } from './styled';
 
 type ContentHeaderProps = {
-	image?: string;
-	name?: string;
-	email?: string;
+	image: string;
+	name: string;
+	email: string;
 	actionLogout: () => void;
 };
 function ContentHeader({
@@ -23,14 +23,19 @@ function ContentHeader({
 }: ContentHeaderProps): JSX.Element {
 	return (
 		<ContentMain>
-			<ImagenProfile src='https://avatars3.githubusercontent.com/u/31748119?s=460&amp;u=5b533fd135904b8b25951011a0c3da20fe15b413&amp;v=4' />
+			<ImagenProfile
+				src={
+					`${image}` ||
+					'https://avatars3.githubusercontent.com/u/31748119?s=460&amp;u=5b533fd135904b8b25951011a0c3da20fe15b413&amp;v=4'
+				}
+			/>
 			<ContentChild>
 				<ContentTextName>
 					<TitleComponet
 						variant='textCards'
 						fontSize='15px'
 						marginText='0 20px'>
-						Edison
+						{`User: ${name}`}
 					</TitleComponet>
 				</ContentTextName>
 				<ContentTextEmail>
@@ -39,7 +44,7 @@ function ContentHeader({
 						fontSize='15px'
 						marginText='0 20px'
 						color='#9999'>
-						edison.alb@imaginams.com.co
+						{`Email: ${email}`}
 					</TitleComponet>
 				</ContentTextEmail>
 			</ContentChild>
