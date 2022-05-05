@@ -1,2 +1,5 @@
 import LoginMolecule from './molecule-login';
-export { LoginMolecule };
+import CardsInfo from './cards-info';
+import ContentHeader from './content-header';
+
+export { LoginMolecule, CardsInfo, ContentHeader };

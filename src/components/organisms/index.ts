@@ -1,3 +1,5 @@
 import LoginOrganism from './organism-login';
+import HomeOrganism from './organism-home';
+import HeaderOrganism from './header';
 
-export { LoginOrganism };
+export { LoginOrganism, HomeOrganism, HeaderOrganism };

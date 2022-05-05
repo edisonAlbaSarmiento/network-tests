@@ -5,15 +5,16 @@ import {
 	OAuthProvider,
 	onAuthStateChanged,
 } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
 import { TitleComponet, ButtosSocialMedia } from 'components/atoms';
 import { ContentImage, Image, ContentIcons } from './styled';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
 	getLoginUserAsync,
-	logoutAsync,
 	selectUserLogin,
+	selectLoader,
+	selectError,
+	selectIsLoggin,
 } from 'redux-service/services';
 
 type LoginMoleculeProps = {
@@ -23,8 +24,15 @@ type LoginMoleculeProps = {
 
 function LoginMolecule({ title, subTitle }: LoginMoleculeProps): JSX.Element {
 	const [user, setUser] = useState<any>({ isLogin: false, name: '' || null });
-	let navigate = useNavigate();
 	const selectUserLoginDATA = useSelector<any>(selectUserLogin);
+	const stateLoader = useSelector<any>(selectLoader);
+	const stateError = useSelector<any>(selectError);
+	const stateLoggin = useSelector<any>(selectIsLoggin);
+	console.log('stateLoggin', stateLoggin);
+
+	console.log('stateLoader', stateLoader);
+	console.log('stateError', stateError);
+
 	const dispatch = useDispatch();
 
 	console.log('selectUserLoginDATA', selectUserLoginDATA);
@@ -37,8 +45,14 @@ function LoginMolecule({ title, subTitle }: LoginMoleculeProps): JSX.Element {
 				setUser({ isLogin: true, name: result.user.displayName });
 				console.log(result.user);
 				const data = {
-					firstName: result?.user?.displayName,
-					lastName: result?.user?.displayName,
+					firstName:
+						result?.user?.displayName !== null
+							? result?.user?.displayName
+							: 'Sin nombre',
+					lastName:
+						result?.user?.displayName !== null
+							? result?.user?.displayName
+							: 'Sin nombre',
 					email: result?.user?.email,
 				};
 				dispatch<any>(getLoginUserAsync(data));
@@ -48,18 +62,12 @@ function LoginMolecule({ title, subTitle }: LoginMoleculeProps): JSX.Element {
 			});
 	};
 
-	const logOut = () => {
-		dispatch<any>(logoutAsync());
-	};
-
 	const getUser = () => {
 		const auth = getAuth();
 		onAuthStateChanged(auth, (user) => {
 			console.log('USER', user);
 			if (user) {
-				setUser({ isLogin: true, name: user.displayName });
-			} else {
-				setUser({ isLogin: false, name: '' });
+				dispatch<any>(getLoginUserAsync(user));
 			}
 		});
 	};
@@ -92,8 +100,6 @@ function LoginMolecule({ title, subTitle }: LoginMoleculeProps): JSX.Element {
 					type='facebook'
 					onClick={() => onClick('facebook')}
 				/>
-				{user.isLogin && <button onClick={() => logOut()}>logOut</button>}
-				<button onClick={() => navigate('/home')}>home</button>
 			</ContentIcons>
 		</>
 	);
