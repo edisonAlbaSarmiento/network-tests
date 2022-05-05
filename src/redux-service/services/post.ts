@@ -70,7 +70,7 @@ const getCommentsPostActionAsync = (data: any) => async (dispatch: any) => {
 
 		await axios({
 			method: 'get',
-			url: `${API_URL}/post/${data.id}/comment`,
+			url: `${API_URL}/post/${data}/comment?limit=10`,
 			headers: {
 				'app-id': '62728f494dd3cece326fff39',
 			},
@@ -97,7 +97,7 @@ const getUserDataByPostActionAsync = (data: any) => async (dispatch: any) => {
 
 		await axios({
 			method: 'get',
-			url: `${API_URL}/user/${data.id}`,
+			url: `${API_URL}/user/${data}`,
 			headers: {
 				'app-id': '62728f494dd3cece326fff39',
 			},

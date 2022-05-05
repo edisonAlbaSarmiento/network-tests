@@ -5,18 +5,25 @@ import { ContentMain } from './styled';
 type HomeOrganismProps = {
 	dataCard: any;
 	selectItem?: any;
+	setIdUser?: any;
 };
 
 function HomeOrganism({
 	dataCard,
-	selectItem = () => {},
+	selectItem,
+	setIdUser,
 }: HomeOrganismProps): JSX.Element {
 	return (
 		<ContentMain>
 			{dataCard?.map((item: any, index: Key | null | undefined) => (
-				<div onClick={selectItem(item)}>
-					<CardsInfo key={index} dataCardItem={item} />
-				</div>
+				<CardsInfo
+					dataCardItem={item}
+					onClickAction={() => {
+						selectItem(item);
+						setIdUser(item.owner.id);
+					}}
+					key={index}
+				/>
 			))}
 		</ContentMain>
 	);

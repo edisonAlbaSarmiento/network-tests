@@ -8,8 +8,6 @@ const MainContent = styled.div`
 
 const ContentHeader = styled.div``;
 
-const ContentBody = styled.div`
-	padding: ${({ theme }) => theme.padding.paddingSmall};
-`;
+const ContentBody = styled.div``;
 
 export { MainContent, ContentHeader, ContentBody };
