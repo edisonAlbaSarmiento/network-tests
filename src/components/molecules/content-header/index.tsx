@@ -35,7 +35,7 @@ function ContentHeader({
 						variant='textCards'
 						fontSize='15px'
 						marginText='0 20px'>
-						{`User: ${name}`}
+						{`User: ${name || 'No Data'}`}
 					</TitleComponet>
 				</ContentTextName>
 				<ContentTextEmail>

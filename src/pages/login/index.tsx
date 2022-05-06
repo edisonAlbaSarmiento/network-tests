@@ -1,7 +1,8 @@
 import { LoginTemplate } from 'components/templates';
 import { LoginOrganism } from 'components/organisms';
 
-const imageLogin = require('assets/img/loginImage.jpg');
+const imageLogin =
+	'https://raw.githubusercontent.com/edisonAlbaSarmiento/network-tests/master/src/assets/img/loginImage.jpg';
 
 function LoginPage() {
 	return (

@@ -10,7 +10,6 @@ const ContentProfile = styled.div`
 	border-radius: 16px;
 	overflow-wrap: break-word;
 	background: white;
-	box-shadow: -20px 20px 60px #bebebe, 20px -20px 60px #ffffff;
 	border-radius: 16px;
 `;
 
