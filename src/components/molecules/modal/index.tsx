@@ -18,7 +18,7 @@ function ModalMolecule({
 	children,
 }: DialogProps): JSX.Element {
 	return (
-		<ContentMainModal isOpen={isOpen} onClick={() => setIsOpen(false)}>
+		<ContentMainModal isOpen={isOpen}>
 			<Content>
 				<ContentInfoModal>
 					<ContentCloset onClick={() => setIsOpen(false)}>
