@@ -8,7 +8,7 @@
  - To see the comments at the bottom of the card there is a comment icon which if clicked will open the modal, to show the total number of comments and the comments with their respective information
  - To filter the posts, you can click on the tags already listed in the cards, with this the filtered active tag will be displayed and the posts filtered by the selected tag will be shown, if you remove the filter it will search for the initial posts again
  - The feed page is also responsive so it can be validated from a mobile device
-
+ - Atomic design was used for components
 
 ## Live demo
 
