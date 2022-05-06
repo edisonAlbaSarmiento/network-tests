@@ -42,8 +42,7 @@ function ContentHeader({
 					<TitleComponet
 						variant='textCards'
 						fontSize='15px'
-						marginText='0 20px'
-						color='#9999'>
+						marginText='0 20px'>
 						{`Email: ${email}`}
 					</TitleComponet>
 				</ContentTextEmail>

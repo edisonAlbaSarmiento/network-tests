@@ -5,7 +5,7 @@ const ContentToast = styled.div`
 	justify-content: center;
 	align-items: center;
 	padding: ${({ theme }) => theme.padding.paddingSmall};
-	background-color: #ff3c00;
+	background-color: #f44335;
 	border-radius: 16px;
 	margin: 7% 0;
 	@media (max-width: 1024px) {

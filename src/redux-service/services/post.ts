@@ -2,15 +2,9 @@ import axios from 'axios';
 import { createSlice } from '@reduxjs/toolkit';
 import { showErrorAction, showLoaderAction } from 'redux-service/services';
 
-const API_URL = 'https://dummyapi.io/data/v1';
+const API_URL = process.env.REACT_APP_API_URL;
 
-const endpoints = {
-	getDataByUserLogin: 'user/:id',
-	getByAllPost: '/post',
-	filterByTag: '/tag/:id/post',
-	showCommentPost: '/post/:id/comment',
-	getDataByUserPost: 'user/:id',
-};
+const APP_ID = process.env.REACT_APP_ID;
 
 // POST
 
@@ -25,7 +19,6 @@ const postSlide = createSlice({
 	},
 	reducers: {
 		saveDataPostAllAction: (state: any, action: any) => {
-			console.log('saveDataPostAllAction', action);
 			state.postList = action.payload;
 		},
 		saveCommentsPostAction: (state: any, action: any) => {
@@ -33,6 +26,9 @@ const postSlide = createSlice({
 		},
 		saveUserDataByPostAction: (state: any, action: any) => {
 			state.userDataByPost = action.payload;
+		},
+		saveFilterByTagPostAction: (state: any, action: any) => {
+			state.postList = action.payload;
 		},
 	},
 });
@@ -45,20 +41,13 @@ const getPostAllAsync = () => async (dispatch: any) => {
 			method: 'get',
 			url: `${API_URL}/post?limit=10`,
 			headers: {
-				'app-id': '62728f494dd3cece326fff39',
+				'app-id': `${APP_ID}`,
 			},
-			// data: {
-			// 	firstName: data.firstName,
-			// 	lastName: data.lastName,
-			// 	email: data.email,
-			// },
 		}).then((res: any) => {
-			console.log('saveDataPostAllAction', res);
-
 			dispatch(saveDataPostAllAction(res.data));
+			dispatch(showLoaderAction(false));
 		});
 	} catch (err) {
-		console.log('ERROR', err);
 		dispatch(showErrorAction(false));
 		dispatch(showLoaderAction(false));
 	}
@@ -72,20 +61,13 @@ const getCommentsPostActionAsync = (data: any) => async (dispatch: any) => {
 			method: 'get',
 			url: `${API_URL}/post/${data}/comment?limit=10`,
 			headers: {
-				'app-id': '62728f494dd3cece326fff39',
+				'app-id': `${APP_ID}`,
 			},
-			// data: {
-			// 	firstName: data.firstName,
-			// 	lastName: data.lastName,
-			// 	email: data.email,
-			// },
 		}).then((res: any) => {
-			console.log('saveCommentsPostAction', res);
-
 			dispatch(saveCommentsPostAction(res.data));
+			dispatch(showLoaderAction(false));
 		});
 	} catch (err) {
-		console.log('ERROR', err);
 		dispatch(showErrorAction(false));
 		dispatch(showLoaderAction(false));
 	}
@@ -99,20 +81,33 @@ const getUserDataByPostActionAsync = (data: any) => async (dispatch: any) => {
 			method: 'get',
 			url: `${API_URL}/user/${data}`,
 			headers: {
-				'app-id': '62728f494dd3cece326fff39',
+				'app-id': `${APP_ID}`,
 			},
-			// data: {
-			// 	firstName: data.firstName,
-			// 	lastName: data.lastName,
-			// 	email: data.email,
-			// },
 		}).then((res: any) => {
-			console.log('saveUserDataByPostAction', res);
-
 			dispatch(saveUserDataByPostAction(res.data));
+			dispatch(showLoaderAction(false));
 		});
 	} catch (err) {
-		console.log('ERROR', err);
+		dispatch(showErrorAction(false));
+		dispatch(showLoaderAction(false));
+	}
+};
+
+const getFilterTagByPostActionAsync = (data: any) => async (dispatch: any) => {
+	try {
+		dispatch(showLoaderAction(true));
+
+		await axios({
+			method: 'get',
+			url: `${API_URL}/tag/${data}/post`,
+			headers: {
+				'app-id': `${APP_ID}`,
+			},
+		}).then((res: any) => {
+			dispatch(saveFilterByTagPostAction(res.data));
+			dispatch(showLoaderAction(false));
+		});
+	} catch (err) {
 		dispatch(showErrorAction(false));
 		dispatch(showLoaderAction(false));
 	}
@@ -122,6 +117,7 @@ const {
 	saveDataPostAllAction,
 	saveCommentsPostAction,
 	saveUserDataByPostAction,
+	saveFilterByTagPostAction,
 }: any = postSlide.actions;
 interface Stateprops {
 	post: {
@@ -149,5 +145,6 @@ export {
 	getCommentsPostActionAsync,
 	getUserDataByPostActionAsync,
 	getPostAllAsync,
+	getFilterTagByPostActionAsync,
 };
 export default postSlide.reducer;

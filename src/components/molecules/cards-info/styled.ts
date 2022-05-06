@@ -33,6 +33,7 @@ const ContentImageCard = styled.img`
 	width: 16%;
 	height: 54px;
 	border-radius: 16px;
+	cursor: pointer;
 `;
 
 const ContentImagePostCard = styled.img`
@@ -75,6 +76,7 @@ const ContentLikes = styled.div`
 	justify-content: space-between;
 	width: 10%;
 	align-items: center;
+	cursor: pointer;
 	@media (max-width: 1024px) {
 		width: 15%;
 	}
@@ -84,6 +86,27 @@ const ContentText = styled.div`
 	width: 54%;
 	@media (max-width: 1024px) {
 		width: 100%;
+	}
+`;
+
+const ContentTags = styled.div`
+	margin: 4% 0;
+	display: flex;
+	flex-wrap: wrap;
+`;
+
+const ContentTagItem = styled.div`
+	background-color: #f44335;
+	padding: 0.55rem;
+	border-radius: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 2%;
+	width: 23%;
+	cursor: pointer;
+	@media (max-width: 1024px) {
+		width: 25%;
 	}
 `;
 
@@ -98,4 +121,6 @@ export {
 	ContentTitleHeader,
 	ContentLikes,
 	ContentText,
+	ContentTags,
+	ContentTagItem,
 };

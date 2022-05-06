@@ -11,27 +11,28 @@ import {
 	selectCommentsPost,
 	getUserDataByPostActionAsync,
 	selectUserDataByPost,
+	getFilterTagByPostActionAsync,
 } from 'redux-service/services/post';
 
 function HomePage() {
 	const dateLoginUser = useSelector<any>(selectUserLogin);
 	const listPost = useSelector(selectAllPost);
-	console.log('POST', listPost);
 	const listCommentsPost = useSelector(selectCommentsPost);
-	console.log('listCommentsPost', listCommentsPost);
 	const dataByUserPost = useSelector(selectUserDataByPost);
-	console.log('dataByUserPost', dataByUserPost);
 	const dispatch = useDispatch();
 
 	const [selectItem, setItem] = useState<any>(null);
 	const [selectIdUser, setIdUser] = useState<any>(null);
+	const [filterByTag, setFilterByTag] = useState<string>('');
 
 	useEffect(() => {
-		dispatch<any>(getPostAllAsync());
-	}, [dispatch]);
+		if (filterByTag === '') {
+			dispatch<any>(getPostAllAsync());
+		}
+	}, [dispatch, filterByTag]);
 
 	useEffect(() => {
-		if (selectItem !== null) {
+		if (selectItem) {
 			dispatch<any>(getCommentsPostActionAsync(selectItem.id));
 		}
 	}, [dispatch, selectItem]);
@@ -42,14 +43,15 @@ function HomePage() {
 		}
 	}, [dispatch, selectIdUser]);
 
+	useEffect(() => {
+		if (filterByTag) {
+			dispatch<any>(getFilterTagByPostActionAsync(filterByTag));
+		}
+	}, [dispatch, filterByTag]);
+
 	const logOut = () => {
 		dispatch<any>(logoutAsync());
 	};
-
-	// const selectItemAction = (item: any) => {
-	// 	console.log('selectItem', selectItem);
-	// };
-	console.log('selectItem', selectItem);
 
 	return (
 		<HomeTemplate
@@ -64,6 +66,10 @@ function HomePage() {
 					dataCard={listPost?.data}
 					selectItem={setItem}
 					setIdUser={setIdUser}
+					filterByTag={filterByTag}
+					setFilterByTag={setFilterByTag}
+					listCommentsPost={listCommentsPost?.data}
+					dataByUserPost={dataByUserPost}
 				/>
 			}
 		/>

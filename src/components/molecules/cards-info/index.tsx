@@ -12,25 +12,34 @@ import {
 	ContentTitleHeader,
 	ContentLikes,
 	ContentText,
+	ContentTags,
+	ContentTagItem,
 } from './styled';
 import { Key } from 'react';
 import format from 'date-fns/format';
 
 type CardsInfoProps = {
 	dataCardItem?: any;
-	onClickAction?: () => void;
-	key?: Key | null | undefined;
+	onShowDataUserAction?: () => void;
+	onShowCommentsAction?: () => void;
+	key: Key | null | undefined;
+	onSelectTagAction?: any;
 };
 export default function CardsInfo({
 	dataCardItem,
-	onClickAction,
+	onShowDataUserAction,
+	onShowCommentsAction,
 	key,
+	onSelectTagAction,
 }: CardsInfoProps): JSX.Element {
 	return (
-		<ContentMain onClick={onClickAction} key={key}>
+		<ContentMain key={key}>
 			<ContentChildCard>
 				<ContentHeaderCard>
-					<ContentImageCard src={`${dataCardItem?.owner?.picture}`} />
+					<ContentImageCard
+						src={`${dataCardItem?.owner?.picture}`}
+						onClick={onShowDataUserAction}
+					/>
 					<ContentTitleHeader>
 						<TitleComponet variant='subtitle' fontSize='20px'>
 							{`${dataCardItem?.owner?.firstName} ${dataCardItem?.owner?.lastName}`}
@@ -51,15 +60,22 @@ export default function CardsInfo({
 						</TitleComponet>
 					</ContentText>
 				</ContentChildBodyCard>
-
+				<ContentTags>
+					{dataCardItem?.tags.map((tag: string) => (
+						<ContentTagItem onClick={() => onSelectTagAction(tag)}>
+							<TitleComponet variant='textCards' fontSize='12px' color='white'>
+								{tag}
+							</TitleComponet>
+						</ContentTagItem>
+					))}
+				</ContentTags>
 				<ContentChildFooterCard>
 					<ContentLikes>
 						<FcLike />
 						{dataCardItem?.likes}
 					</ContentLikes>
-					<ContentLikes>
+					<ContentLikes onClick={onShowCommentsAction}>
 						<FaComments />
-						{dataCardItem?.likes}
 					</ContentLikes>
 				</ContentChildFooterCard>
 			</ContentChildCard>

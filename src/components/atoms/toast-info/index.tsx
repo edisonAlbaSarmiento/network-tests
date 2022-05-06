@@ -25,7 +25,7 @@ export default function ToastInfo({
 		<>
 			{showMessage && (
 				<ContentToast>
-					<TitleComponet variant='textCards' fontSize='20px'>
+					<TitleComponet variant='textCards' fontSize='20px' color='white'>
 						{message}
 					</TitleComponet>
 					<ContentIcon>

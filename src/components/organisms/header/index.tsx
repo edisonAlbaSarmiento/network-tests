@@ -16,7 +16,6 @@ function HeaderOrganism({
 	},
 	actionLogout,
 }: HeaderOrganismProps): JSX.Element {
-	console.log('dataUserLogin', dataUserLogin);
 	return (
 		<ContentMain>
 			<ContentHeader
