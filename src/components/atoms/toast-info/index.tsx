@@ -19,7 +19,7 @@ export default function ToastInfo({
 		setTimeout(() => {
 			actionCloseToast();
 		}, 8000);
-	}, []);
+	});
 
 	return (
 		<>
