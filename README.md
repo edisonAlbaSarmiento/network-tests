@@ -12,7 +12,7 @@
 
 ## Live demo
 
-[Demo](https://chuckwudi.mssnapps.com)
+[Demo](https://network-tests.vercel.app/)
 
 # Getting Started with Create React App
 
