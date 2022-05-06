@@ -1,3 +1,19 @@
+## General characteristics
+
+ - The project can access the functionality through four social networks, google, facebook, twitter and github if the user has the same registered email an error will be returned.
+ - When the login passes successfully, the useEffect hook is used to bring the initial information of the logged in user and the posts.
+ - When the user enters, the data with which he entered and his profile picture will be seen in the header
+ - In each post the information returned by the api is shown
+ - To show the data of the user who created the post, you must click on the user's image with this the modal will open and show the data of the same
+ - To see the comments at the bottom of the card there is a comment icon which if clicked will open the modal, to show the total number of comments and the comments with their respective information
+ - To filter the posts, you can click on the tags already listed in the cards, with this the filtered active tag will be displayed and the posts filtered by the selected tag will be shown, if you remove the filter it will search for the initial posts again
+ - The feed page is also responsive so it can be validated from a mobile device
+
+
+## Live demo
+
+[Demo](https://chuckwudi.mssnapps.com)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
