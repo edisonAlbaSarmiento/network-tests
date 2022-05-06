@@ -20,7 +20,7 @@ export default function Comments({ comment }: CommentsProps): JSX.Element {
 					fontSize='12'
 					marginText='2% 0'
 					color='#9999'>
-					Comment
+					Comment:
 				</TitleComponet>
 				<TitleComponet variant='subtitle' fontSize='12' marginText='2% 0'>
 					{comment?.message}
